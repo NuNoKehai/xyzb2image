@@ -1,0 +1,126 @@
+# xyzb2image
+A ruby script to generate 2D image from atomic coordinate and bond information.
+Cairo and rcairo packages are required.
+You can install them with the following commands in Mac, for example.
+$ brew install cairo
+$ gem install cairo
+This script is distributed under a GPL license.
+
+To use this script, it is necessary to prepare .xyz and .bond files in advance.
+Here are examples of input files.
+
+In .xyz file, you can place any atomic data after the column of z coordinate.
+In this file, Mulliken populations and the deviation of Mulliken populations from neutral are placed as "q" and "dq".
+-------------------------------- CH4.xyz ---------------------------------
+5
+CH4 (sp, x, y, z, q, dq)
+C    0.00000   0.00000   0.00000   5.019497520     1.019497520
+H   -0.88998  -0.62931   0.00000   0.745125620    -0.254874380
+H    0.00000   0.62931  -0.88998   0.745125620    -0.254874380
+H    0.00000   0.62931   0.88998   0.745125620    -0.254874380
+H    0.88998  -0.62931   0.00000   0.745125620    -0.254874380
+--------------------------------------------------------------------------
+
+Bond file has an original format described as follows.
+From the second line, information of each bond is specified. Each line consists information in the following order:
+(id of 1st atom)  (species of 1st atom)  (id of 2nd atom)  (species of 2nd atom)  (cell indices from 1st to second atom)
+You can place any bond data after the 8th column.
+In this file, bond length is placed for example.
+-------------------------------- CH4.bond --------------------------------
+num_md=           1  num_atom=           5  num_bond=           4
+    1   C     2   H     0    0    0   1.08999792
+    1   C     3   H     0    0    0   1.08999792
+    1   C     4   H     0    0    0   1.08999792
+    1   C     5   H     0    0    0   1.08999792
+--------------------------------------------------------------------------
+
+All the informations necessary for imaging is included in "xyzb2image.config"
+
+----------------------- xyzb2image.config l.1-l.5 ------------------------
+# Input files
+## xyz file
+CH4.xyz
+## bond file
+CH4.bond
+--------------------------------------------------------------------------
+These lines specify the input file names.
+
+----------------------- xyzb2image.config l.6-l.12 -----------------------
+# Output files
+## atomic coordinate pdf
+CH4.pdf
+##color bar for xyz
+cb_xyz.pdf
+##color bar for bond
+cb_bond.pdf
+--------------------------------------------------------------------------
+These lines specify the output file names.
+
+----------------------- xyzb2image.config l.14-l.15 ----------------------
+## direction of normal vector for the drawing plane
+x
+--------------------------------------------------------------------------
+This line specifies which plane is to be drawn.
+If "x" is specified, projection to the yz plane is drawn.
+
+----------------------- xyzb2image.config l.16-l.19 ----------------------
+## Bounding box
+-3.0  3.0
+-3.0  3.0
+-3.0  3.0
+--------------------------------------------------------------------------
+These lines speficies the range of area to be drawn.
+Data order is as follows:
+(xmin) (xmax)
+(ymin) (ymax)
+(zmin) (zmax)
+
+----------------------- xyzb2image.config l.20-l.21 ----------------------
+## color bar parameters for xyz ... id_data type vmin vmax
+2   BWR   -2   2
+--------------------------------------------------------------------------
+This line specifies which atomic data is to be expressed in the color on each atom.
+id_data specifies the order of focused data. if you set this parameter 0, the color of atoms are set as default.
+type specifies the color bar type.
+  WR: white -> red
+  BWR: blue -> white -> red
+  hue_RB: red to blue with the HSV order
+  hue_RM: red to magenta with the HSV order
+vmin and vmax specify the minimum and maximum values of the color bar.
+
+----------------------- xyzb2image.config l.22-l.23 ----------------------
+## color bar output parameters for xyz ... width height number_of_scale number_of_subscale
+300 50 6 2
+--------------------------------------------------------------------------
+This line specifies the appearance of color bar for xyz data.
+
+----------------------- xyzb2image.config l.24-l.27 ----------------------
+## color bar parameters for bond ... id_data type vmin vmax
+0   WR  0.0  2.0
+## color bar output parameters for bond ... width height number_of_scale number_of_subscale
+300 50 2 2
+--------------------------------------------------------------------------
+These lines specifies the color bar parameters for bond data.
+
+----------------------- xyzb2image.config l.28-l.31 ----------------------
+## coordinate -> image
+30
+## atomic radius -> coordinate
+0.3
+--------------------------------------------------------------------------
+These lines specifies the parameters for appearance of output image.
+If you want to make atom smaller or bigger in the output image, change the second parameter.
+It is not recommendend to change the first parameter.
+
+----------------------- xyzb2image.config l.32- --------------------------
+## element parameters (radius, r, g, b)
+H   0.31     0     0     1
+C   0.77     1     1     0
+Fe  1.26     1     0     0
+Nd  1.81     1     1     0
+B   0.90     0     1     0
+--------------------------------------------------------------------------
+These lines specify default parameters for appearance of atoms.
+The second parameter specifies the atomic radius.
+The 3rd to 5th parameters speficies the default colors of atoms.
+You can add any atomic species in these lines.
