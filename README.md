@@ -19,5 +19,5 @@ The details of how to use this script is written in file "howtouse.txt".
 
 ![sample](sample.png)
 
-Note that the leftmost images are editted afterwards.
+Note that the leftmost image is editted afterwards.
 Because images are written in pdf format, you can edit your atomic coordinate images as vector graphics.
