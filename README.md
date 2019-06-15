@@ -13,7 +13,7 @@ sh main.sh xyzb2image.config
 ```
 If you omit the first argument, the script read "./xyzb2image.config" as default input.
 
-The details of how to use this script is written in file "howtouse.txt"
+The details of how to use this script is written in file "howtouse.txt".
 
 # Image samples
 
