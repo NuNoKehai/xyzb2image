@@ -14,3 +14,9 @@ sh main.sh xyzb2image.config
 If you omit the first argument, the script read "./xyzb2image.config" as default input.
 
 The details of how to use this script is written in file "howtouse.txt"
+
+# output image samples
+
+![sample 1](images/sample_1.png)
+![sample 2](images/sample_2.png)
+![sample 3](images/sample_3.png)
