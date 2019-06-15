@@ -15,6 +15,9 @@ If you omit the first argument, the script read "./xyzb2image.config" as default
 
 The details of how to use this script is written in file "howtouse.txt"
 
-# output image samples
+# Image samples
 
 ![sample](sample.png)
+
+Note that the leftmost images are editted afterwards.
+Because images are written in pdf format, you can edit your atomic coordinate images as vector graphics.
