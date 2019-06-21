@@ -1,3 +1,4 @@
+
 $type_colorbar=Struct.new(:type, :vmin, :vmax)
 
 def val2col(val,cb)
@@ -17,9 +18,17 @@ def val2col(val,cb)
   elsif cb.type == "WB"
     col = (val-cb.vmin)/(cb.vmax-cb.vmin)
     if 0.0 <= col && col < 1.0
-      rgb[0]=col ; rgb[1]=col
-      elsif 1.0 < col
+      rgb[0]=1-col ; rgb[1]=1-col
+    elsif 1.0 <= col
       rgb[0]=0.0 ; rgb[1]=0.0
+    end
+  elsif cb.type == "BW"
+    col = (val-cb.vmin)/(cb.vmax-cb.vmin)
+    rgb[0]=0.0 ; rgb[1]=0.0
+    if 0.0 <= col && col < 1.0
+      rgb[0]=col ; rgb[1]=col
+    elsif 1.0 <= col
+      rgb[0]=1.0 ; rgb[1]=1.0
     end
   elsif cb.type == "BWR"
     v0=(cb.vmin+cb.vmax)/2
